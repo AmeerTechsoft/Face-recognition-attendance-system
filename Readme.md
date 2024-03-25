@@ -59,7 +59,7 @@ flask run
 
 ## System Architecture
 
-The face recognition attendance system follows a client-server architecture. The client-side interface is built using HTML, CSS, and JavaScript, while the server-side logic is implemented in Python using the Flask framework. The face recognition functionality is powered by the OpenCV and MediaPipe libraries, with trained models for face detection and recognition.
+The face recognition attendance system follows a client-server architecture. The client-side interface is built using HTML, CSS, and JavaScript, while the server-side logic is implemented in Python using the Flask framework. The face recognition functionality is powered by the FaceNet and MediaPipe libraries, with trained models for face detection and recognition.
 
 ## Contributing
 
