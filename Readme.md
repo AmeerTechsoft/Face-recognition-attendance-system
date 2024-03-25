@@ -18,33 +18,33 @@ The face recognition attendance system is designed to automate the process of ta
 
 1. Clone the repository:
 
-'''
+bash ```
 git clone https://github.com/AmeerTechsoft/face-recognition-attendance-system.git
-'''
+```
 
 2. Install dependencies:
 
-'''
+bash ```
 cd face-recognition-attendance-system
 pip install -r requirements.txt
-'''
+```
 
 
 3. Set up the database:
 
-'''
+bash ```
 flask init db
 flask migrate db
 flask upgrade db
-
+```
 
 
 
 4. Run the application:
 
-'''
+bash ```
 flask run
-'''
+```
 
 
 5. Access the application in your web browser at `http://localhost:5000`.
