@@ -1,0 +1,42 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}Mark Attendance{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                    {% for category, message in messages %}
+                    <div class="alert alert-dismissible fade show alert-{{ category }} text-white" role="alert">
+                      {{ message }}
+                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                    {% endwith %}
+    <h1>Mark Attendance</h1>
+    <p>Click the button below to start marking attendance using the live camera feed.</p>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="video-container">
+                <img id="video" src="{{ url_for('authentication_blueprint.video_feed') }}" class="img-fluid" alt="Live Camera Feed">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <form method="POST" action="{{ url_for('authentication_blueprint.mark') }}">
+                {{ form.csrf_token }}
+                <div class="mb-3">
+                    <label for="course_code" class="form-label">Course Code</label>
+                    <select class="form-select" id="course_code" name="course_code">
+                        {% for course in courses %}
+                        <option value="{{ course.id }}">{{ course.code }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Mark Attendance</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

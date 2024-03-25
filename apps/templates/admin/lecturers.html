@@ -1,0 +1,94 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} lecturers {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+
+{% block content %}
+<div class="container-fluid py-4">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+  {% for category, message in messages %}
+  <div class="alert alert-dismissible fade show alert-{{category}} text-white" role="alert">
+    {{ message }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  {% endfor %}
+  {% endif %}
+  {% endwith %}
+    <div class="row">
+        <!-- Add lecturer Form -->
+        <div class="col-lg-4 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    Add Lecturer
+                </div>
+                <div class="card-body">
+                    <form method="post" action="{{ url_for('admin_blueprint.add_lecturer') }}">
+                        {{ form.hidden_tag() }}
+                        <div class="mb-3">
+                            {{ form.name.label }}
+                            {{ form.name(class="form-control") }}
+                            {{ form.email.label }}
+                            {{ form.email(class="form-control") }}
+                            {{ form.dob.label }}
+                            {{ form.dob(class="form-control") }}
+                            {{ form.password.label }}
+                            {{ form.password(class="form-control") }}
+                            {{ form.profile_picture.label }}
+                            {{ form.profile_picture(class="form-control") }}
+                            {{ form.lecturer_id.label }}
+                            {{ form.lecturer_id(class="form-control") }}
+                        </div>
+                        <!-- Add other form fields here -->
+                        <button type="submit" class="btn btn-primary">Add Lecturer</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- View/Edit/Delete lecturers -->
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-header">
+                    View/Edit/Delete Lecturers
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Lecturer ID</th>
+                                <!-- Add other table headers here -->
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for lecturer in lecturers %}
+                            <tr>
+                                <td>{{ lecturer.name }}</td>
+                                <td>{{ lecturer.email }}</td>
+                                <td>{{ lecturer.lecturer_id }}</td>
+                                <!-- Add other table cells here -->
+                                <td>
+                                    <a href="{{ url_for('admin_blueprint.edit_lecturer', lecturer_id=lecturer.id) }}" class="btn btn-sm btn-primary">Edit</a>
+                                    <form method="post" action="{{ url_for('admin_blueprint.delete_lecturer', lecturer_id=lecturer.id) }}" class="d-inline">
+                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this lecturer?')">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+
+<!-- Specific JS goes HERE --> 
+{% block javascripts %}{% endblock javascripts %}

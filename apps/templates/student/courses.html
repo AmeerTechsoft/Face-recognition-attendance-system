@@ -1,0 +1,62 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} Available Courses {% endblock title %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+  {% for category, message in messages %}
+  <div class="alert alert-dismissible fade show alert-{{category}} text-white" role="alert">
+    {{ message }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  {% endfor %}
+  {% endif %}
+  {% endwith %}
+    <div class="row">
+        <!-- Available Courses Section -->
+        <div class="col-md-6 bg-white available-courses">
+            <h2>Available Courses</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Code</th>
+                        <th>Lecturer</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for course in available_courses %}
+                    <tr>
+                        <td>{{ course.name }}</td>
+                        <td>{{ course.code }}</td>
+                        <td>{{ course.lecturer }}</td>
+                        <td>
+                            <form method="POST" action="{{ url_for('student_blueprint.student_courses') }}">
+                                <input type="hidden" name="course_id" value="{{ course.id }}">
+                                <button type="submit" class="btn btn-primary btn-sm">Add</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <!-- Spacer -->
+        <div class="col-md-12" style="height: 20px;"></div>
+        <!-- Registered Courses Section -->
+        <div class="col-md-6 bg-white registered-courses">
+            <h2>Registered Courses</h2>
+            <ul>
+                {% for course in selected_courses %}
+                <li>
+                    {{ course.name }} ({{ course.code }}) 
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

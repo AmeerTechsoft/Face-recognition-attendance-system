@@ -1,0 +1,88 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} Manage Courses {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+
+{% block content %}
+<div class="container-fluid py-4">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+  {% for category, message in messages %}
+  <div class="alert alert-dismissible fade show alert-{{category}} text-white" role="alert">
+    {{ message }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  {% endfor %}
+  {% endif %}
+  {% endwith %}
+    <div class="row">
+        <!-- Add Course Form -->
+        <div class="col-lg-4 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    Add Course
+                </div>
+                <div class="card-body">
+                    <form method="post" action="{{ url_for('admin_blueprint.add_course') }}">
+                        {{ form.hidden_tag() }}
+                        <div class="mb-3">
+                            {{ form.name.label }}
+                            {{ form.name(class="form-control") }}
+                            {{ form.code.label }}
+                            {{ form.code(class="form-control") }}
+                            {{ form.lecturer.label }}
+                            {{ form.lecturer(class="form-control") }}
+                        </div>
+                        <!-- Add other form fields here -->
+                        <button type="submit" class="btn btn-primary">Add Course</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- View/Edit/Delete Courses -->
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-header">
+                    View/Edit/Delete Courses
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Code</th>
+                                <th>Lecturer</th>
+                                <!-- Add other table headers here -->
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for course in courses %}
+                            <tr>
+                                <td>{{ course.name }}</td>
+                                <td>{{ course.code }}</td>
+                                <td>{{ course.lecturer }}</td>
+                                <!-- Add other table cells here -->
+                                <td>
+                                    <a href="{{ url_for('admin_blueprint.edit_course', course_id=course.id) }}" class="btn btn-sm btn-primary">Edit</a>
+                                    <form method="post" action="{{ url_for('admin_blueprint.delete_course', course_id=course.id) }}" class="d-inline">
+                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this course?')">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+
+<!-- Specific JS goes HERE --> 
+{% block javascripts %}{% endblock javascripts %}

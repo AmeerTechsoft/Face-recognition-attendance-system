@@ -1,0 +1,154 @@
+{% extends 'layouts/base-fullscreen.html' %}
+
+{% block title %} Sign Up {% endblock title %}
+
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="container position-sticky z-index-sticky top-1">
+  <div class="row">
+    <div class="col-12">
+      {% include "includes/navigation-fullscreen.html" %}
+    </div>
+  </div>
+</div>
+
+<main class="main-content mt-0">
+
+  <section class="min-vh-100 mb-8">
+    <div class="page-header align-items-start min-vh-50 pt-5 pb-11 m-3 border-radius-lg" style="background-image: url('{{ config.ASSETS_ROOT }}/img/curved-images/curved14.jpg');">
+      <span class="mask bg-gradient-dark opacity-6"></span>
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-5 text-center mx-auto">
+            <h1 class="text-white mb-2 mt-5">Welcome!</h1>
+            <p class="text-white mb-2 mt-5">Face Recognition attendance system for Nigeria Students</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid">
+      <div class="row mt-lg-n10 mt-md-n11 mt-n10">
+        <div class="col-xl-4 col-lg-5 col-md-7 mx-auto">
+          <div class="card z-index-0">
+
+            <div class="card-header text-center pt-4">
+              <h5>Sign Up</h5>
+            </div>
+
+            <div class="row px-xl-5 px-sm-4 px-3">
+              <div class="mt-2 position-relative text-center">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                {% for category, message in messages %}
+                <div class="alert alert-dismissible fade show alert-{{ category }} text-white" role="alert">
+                  {{ message }}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
+              </div>
+            </div>
+
+            <div class="card-body">
+              {% if success %}
+              <p class="text-sm mt-3 mb-0 text-center">
+                <div class="text-center">
+                  <a href="{{ url_for('authentication_blueprint.student_login') }}" class="btn bg-gradient-dark w-100 my-4 mb-2">Sign In</a>
+                </div>
+              </p>
+              {% else %}
+              <form role="form text-left" method="post" action="{{ url_for('authentication_blueprint.register_student') }}" enctype="multipart/form-data">
+                {{ form.hidden_tag() }}
+                <div class="mb-3">
+                  {{ form.name.label }}
+                  {{ form.name(placeholder="Name", class="input form-control") }}
+                </div>
+                <div class="mb-3">
+                  {{ form.email.label }}
+                  {{ form.email(placeholder="Email", class="input form-control", type="email") }}
+                </div>
+                <div class="mb-3">
+                  {{ form.dob.label }}
+                  {{ form.dob(placeholder="Date of Birth", class="form-control") }}
+                </div>
+                <div class="mb-3">
+                  {{ form.password.label }}
+                  {{ form.password(placeholder="Password", class="form-control", type="password") }}
+                </div>
+                <div class="mb-3">
+                  {{ form.profile_picture.label }}
+                  {{ form.profile_picture(class="form-control", id="profile_picture" ) }}
+                </div>
+                <div class="mb-3 e">
+                  {{ form.student_id.label }}
+                  {{ form.student_id(placeholder="Student ID", class="form-control") }}
+                </div>
+                <div class="mb-3">
+                  {{ form.year.label }}
+                  {{ form.year(placeholder="Year", class="form-select") }}
+                </div>
+                <div class="mb-3">
+                  {{ form.semester.label }}
+                  {{ form.semester(placeholder="Semester", class="form-select") }}
+                </div>
+                <div class="mb-3">
+                  {{ form.program.label }}
+                  {{ form.program(placeholder="Programme", class="form-control") }}
+                </div>
+                  <!-- <button type="button" class="btn bg-gradient-primary w-100 my-4 mb-2" data-bs-toggle="modal" data-bs-target="#imageCaptureModal">
+                    Capture Images
+                  </button> -->
+                </div>
+
+                <div class="text-center">
+                  <button type="submit" name="register" class="btn bg-gradient-dark w-100 my-4 mb-2">Sign Up</button>
+                </div>
+
+                <div class="text-center">
+                  <a href="{{ url_for('authentication_blueprint.student_login') }}" class="btn bg-gradient-secondary w-100 mt-4 mb-0">Sign In</a>
+                </div>
+
+              </form>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="modal fade" id="imageCaptureModal" tabindex="-1" aria-labelledby="imageCaptureModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="imageCaptureModalLabel">Capture Images</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>Capture images:</p>
+          <ul>
+            <li>Kindly use a well-lit area</li>
+            <li>Use a plain background</li>
+            <li>Avoid anyone from coming into the camera frame during registration</li>
+            <li>Kindly remove any facial accessories (e.g., face mask, glasses, helmet, headband, etc.)</li>
+          </ul>
+          <div id="imageCapturePreview">
+          </div>
+          <button type="button" class="btn btn-primary mt-3" onclick="startImageCapture()">Start Capture</button>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% include "includes/footer-fullscreen.html" %}
+
+</main>
+
+{% endblock content %}

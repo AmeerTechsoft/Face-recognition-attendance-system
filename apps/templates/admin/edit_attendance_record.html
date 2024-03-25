@@ -1,0 +1,53 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} Edit Attendance Record {% endblock title %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+  {% for category, message in messages %}
+  <div class="alert alert-dismissible fade show alert-{{category}} text-white" role="alert">
+    {{ message }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  {% endfor %}
+  {% endif %}
+  {% endwith %}
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Edit Attendance Record</h5>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {{ form.hidden_tag() }}
+                        <div class="mb-3">
+                            {{ form.student.label }}
+                            {{ form.student(class="form-control", readonly="true") }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form.course.label }}
+                            {{ form.course(class="form-control", readonly="true") }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form.timestamp.label }}
+                            {{ form.timestamp(class="form-control") }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form.status.label }}
+                            {{ form.status(class="form-control") }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form.lecturer.label }}
+                            {{ form.lecturer(class="form-control") }}
+                        </div>
+                        <button type="submit" class="btn btn-primary">Update Record</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

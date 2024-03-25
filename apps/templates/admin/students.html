@@ -1,0 +1,100 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} students {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+
+{% block content %}
+<div class="container-fluid py-4">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+  {% for category, message in messages %}
+  <div class="alert alert-dismissible fade show alert-{{category}} text-white" role="alert">
+    {{ message }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  {% endfor %}
+  {% endif %}
+  {% endwith %}
+    <div class="row">
+        <!-- Add Student Form -->
+        <div class="col-lg-4 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    Add Student
+                </div>
+                <div class="card-body">
+                    <form method="post" action="{{ url_for('admin_blueprint.add_student') }}">
+                        {{ form.hidden_tag() }}
+                        <div class="mb-3">
+                            {{ form.name.label }}
+                            {{ form.name(class="form-control") }}
+                            {{ form.email.label }}
+                            {{ form.email(class="form-control") }}
+                            {{ form.dob.label }}
+                            {{ form.dob(class="form-control") }}
+                            {{ form.password.label }}
+                            {{ form.password(class="form-control") }}
+                            {{ form.profile_picture.label }}
+                            {{ form.profile_picture(class="form-control") }}
+                            {{ form.student_id.label }}
+                            {{ form.student_id(class="form-control") }}
+                            {{ form.year.label }}
+                            {{ form.year(class="form-control") }}
+                            {{ form.semester.label }}
+                            {{ form.semester(class="form-control") }}
+                            {{ form.program.label }}
+                            {{ form.program(class="form-control") }}
+                        </div>
+                        <!-- Add other form fields here -->
+                        <button type="submit" class="btn btn-primary">Add Student</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- View/Edit/Delete Students -->
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-header">
+                    View/Edit/Delete Students
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Student ID</th>
+                                <!-- Add other table headers here -->
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for student in students %}
+                            <tr>
+                                <td>{{ student.name }}</td>
+                                <td>{{ student.email }}</td>
+                                <td>{{ student.student_id }}</td>
+                                <!-- Add other table cells here -->
+                                <td>
+                                    <a href="{{ url_for('admin_blueprint.edit_student', student_id=student.id) }}" class="btn btn-sm btn-primary">Edit</a>
+                                    <form method="post" action="{{ url_for('admin_blueprint.delete_student', student_id=student.id) }}" class="d-inline">
+                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this student?')">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+
+<!-- Specific JS goes HERE --> 
+{% block javascripts %}{% endblock javascripts %}

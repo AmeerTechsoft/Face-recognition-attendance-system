@@ -1,0 +1,44 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}Update Images{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    <div class="alert alert-dismissible fade show alert-{{category}} text-white" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    <div class="row">
+        <div class="col-lg-6">
+            <h2>Capture Images</h2>
+            <!-- Webcam feed -->
+            <div id="webcam-feed" class="row">
+                <!-- Display captured images -->
+                {% for image in user_images %}
+                <div class="col-6 col-md-4 col-lg-3 mb-4">
+                    <img src="{{ url_for('static', filename=image) }}" class="img-fluid mb-2" alt="Captured Image"
+                        style="max-width: 120px;">
+                </div>
+                {% endfor %}
+            </div>
+            <!-- End webcam feed -->
+        </div>
+        <div class="col-lg-6">
+            <h2>Available Actions</h2>
+            <!-- Add image capture form -->
+            <form method="POST" action="{{ url_for('student_blueprint.student_update_images') }}"
+                enctype="multipart/form-data">
+                {{ form.csrf_token }}
+                <button type="submit" class="btn btn-primary">Capture Images</button>
+            </form>
+            <!-- End add image capture form -->
+        </div>
+    </div>
+</div>
+{% endblock %}

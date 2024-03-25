@@ -1,0 +1,119 @@
+{% extends 'layouts/base-fullscreen.html' %}
+
+{% block title %} Face Recognition Attendance {% endblock title %}
+
+{% block stylesheets %}
+  <!-- Include any specific stylesheets for the landing page -->
+{% endblock stylesheets %}
+
+{% block content %}
+  <div class="container position-sticky z-index-sticky top-1">
+    <div class="row">
+      <div class="col-12">
+        {% include "includes/navigation-fullscreen.html" %}
+      </div>
+    </div>
+  </div>
+
+  <main class="main-content mt-0">
+    <section class="min-vh-100 mb-8">
+      <div class="page-header align-items-start min-vh-50 pt-5 pb-11 m-3 border-radius-lg" style="background-image: url('{{ config.ASSETS_ROOT }}/img/curved-images/curved14.jpg');">
+        <span class="mask bg-gradient-dark opacity-6"></span>
+        <div class="container">
+          {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+          {% for category, message in messages %}
+          <div class="alert alert-dismissible fade show alert-{{ category }} text-white" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+          {% endfor %}
+          {% endif %}
+          {% endwith %}
+          <div class="row justify-content-center">
+            <div class="col-lg-5 text-center mx-auto">
+              <h1 class="text-white mb-2 mt-5">University of Nigeria</h1>
+              <p class="text-white mb-2 mt-5">Face Recognition Attendance System</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="row mt-lg-n10 mt-md-n11 mt-n10">
+          <div class="col-xl-4 col-lg-5 col-md-7 mx-auto">
+            <div class="card z-index-0">
+              <div class="card-body text-center">
+                <h5 class="card-title">Welcome to the Attendance System</h5>
+                <p class="card-text">Choose an option below:</p>
+
+                <div class="d-grid gap-2">
+                  <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#signinModal">Sign In</button>
+                  <button type="button" class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#signupModal">
+                    Sign Up
+                  </button>
+                  <a href="{{ url_for('authentication_blueprint.mark') }}" class="btn btn-info btn-lg">Mark Attendance</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Signup Modal -->
+    <div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="signupModalLabel">Choose Registration Type</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="text-center">
+              <a href="{{ url_for('authentication_blueprint.register_student') }}">
+                <i class="bi bi-person-circle fs-1 text-primary"></i>
+                <p>Student</p>
+              </a>
+              <a href="{{ url_for('authentication_blueprint.register_lecturer') }}">
+                <i class="bi bi-person-circle fs-1 text-success"></i>
+                <p>Lecturer</p>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End Signup Modal -->
+
+    <!-- Signin Modal -->
+    <div class="modal fade" id="signinModal" tabindex="-1" aria-labelledby="signinModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="signinModalLabel">Choose User Type</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="text-center">
+              <a href="{{ url_for('authentication_blueprint.student_login') }}">
+                <i class="bi bi-person-circle fs-1 text-primary"></i>
+                <p>Student</p>
+              </a>
+              <a href="{{ url_for('authentication_blueprint.lecturer_login') }}">
+                <i class="bi bi-person-circle fs-1 text-success"></i>
+                <p>Lecturer</p>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End Signin Modal -->
+
+    {% include "includes/footer-fullscreen.html" %}
+  </main>
+{% endblock content %}
+
+{% block javascripts %}
+  <!-- Include any specific JavaScript for the landing page -->
+{% endblock javascripts %}

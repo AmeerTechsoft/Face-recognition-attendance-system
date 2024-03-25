@@ -1,0 +1,26 @@
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg blur blur-rounded top-0 z-index-3 shadow position-absolute my-3 py-2 start-0 end-0 mx-4">
+    <div class="container-fluid pe-0">
+      <a class="navbar-brand font-weight-bolder ms-lg-0 ms-3 " href="/">
+        <img src="{{ config.ASSETS_ROOT }}/img/Nigeria-logo.png" class="navbar-brand-img h-100" style="max-height: 3rem;" alt="main_logo">
+      </a>
+      <button class="navbar-toggler shadow-none ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon mt-2">
+          <span class="navbar-toggler-bar bar1"></span>
+          <span class="navbar-toggler-bar bar2"></span>
+          <span class="navbar-toggler-bar bar3"></span>
+        </span>
+      </button>
+      <div class="collapse navbar-collapse" id="navigation">
+        <ul class="navbar-nav mx-auto ms-xl-auto">
+
+        </ul>
+        <li class="nav-item d-flex align-items-center">
+          <a class="btn btn-round btn-sm mb-0 btn-outline-primary me-2" 
+             target="_blank" 
+             href="{{ url_for('authentication_blueprint.mark') }}">Mark Attendance</a>
+        </li>
+      </div>
+    </div>
+  </nav>
+  <!-- End Navbar -->

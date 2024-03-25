@@ -1,0 +1,154 @@
+<aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 ps bg-white" id="sidenav-main">
+    <div class="sidenav-header">
+        <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
+        <a class="navbar-brand m-0" href="/">
+            <img src="{{ config.ASSETS_ROOT }}/img/Nigeria-logo.png" class="navbar-brand-img h-100" alt="main_logo">
+            <span class="ms-1 font-weight-bold"></span>
+        </a>
+    </div>
+    <hr class="horizontal dark mt-0">
+    <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
+        <ul class="navbar-nav">
+            {% if user_type == 'student' %}
+            <!-- Student Dashboard -->
+            <li class="nav-item">
+              <a class="nav-link {% if 'index' in segment %} active {% endif %}" href="{{url_for('student_blueprint.student_dashboard')}}">
+                  <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                    <i class="fas fa-tachometer-alt" style="color: #344767;"></i>
+                  </div>
+                  <span class="nav-link-text ms-1">Dashboard</span>
+              </a>
+            </li>
+            <!-- Check Attendance -->
+            <li class="nav-item">
+                <a class="nav-link {% if 'attendance' in segment %} active {% endif %}" href="{{url_for('student_blueprint.student_attendance')}}">
+                    <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                      <i class="fas fa-calendar-check" style="color: #344767;"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">Check my Attendance</span>
+                </a>
+            </li>
+            <!-- My Courses -->
+            <li class="nav-item">
+                <a class="nav-link {% if '' in segment %} active {% endif %}" href="{{url_for('student_blueprint.student_courses')}}">
+                    <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="fas fa-book" style="color: #344767;"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">My Courses</span>
+                </a>
+            </li>
+            <!-- Update Images -->
+            <li class="nav-item">
+                <a class="nav-link {% if 'update-images' in segment %} active {% endif %}" href="{{url_for('student_blueprint.student_update_images')}}">
+                    <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="fas fa-image" style="color: #344767;"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">Update Images</span>
+                </a>
+            </li>
+            <!-- Change Password -->
+            <li class="nav-item">
+                <a class="nav-link {% if 'change-password' in segment %} active {% endif %}" href="{{url_for('student_blueprint.student_change_password')}}">
+                    <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="fas fa-lock" style="color: #344767;"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">Change Password</span>
+                </a>
+            </li>
+            {% elif user_type == 'lecturer' %}
+            <!-- Lecturer Dashboard -->
+            <li class="nav-item">
+              <a class="nav-link {% if 'index' in segment %} active {% endif %}" href="{{url_for('lecturer_blueprint.lecturer_dashboard')}}">
+                  <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                    <i class="fas fa-user" style="color: #344767;"></i>
+                  </div>
+                  <span class="nav-link-text ms-1">Dashboard</span>
+              </a>
+            </li>
+            <!-- Check Attendance -->
+            <li class="nav-item">
+                <a class="nav-link {% if 'attendance' in segment %} active {% endif %}" href="{{url_for('lecturer_blueprint.lecturer_attendance')}}">
+                    <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                      <i class="fas fa-calendar-check" style="color: #344767;"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">Check Attendance</span>
+                </a>
+            </li>
+            <!-- Change Password -->
+            <li class="nav-item">
+                <a class="nav-link {% if 'change-password' in segment %} active {% endif %}" href="{{url_for('lecturer_blueprint.lecturer_change_password')}}">
+                    <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="fas fa-lock" style="color: #344767;"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">Change Password</span>
+                </a>
+            </li>
+            {% elif user_type == 'admin' %}
+            <!-- Admin Dashboard -->
+            <li class="nav-item">
+              <a class="nav-link {% if 'admin_dashboard' in segment %} active {% endif %}" href="{{url_for('admin_blueprint.dashboard')}}">
+                  <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                    <i class="fas fa-user-shield" style="color: #344767;"></i>
+                  </div>
+                  <span class="nav-link-text ms-1">Admin Dashboard</span>
+              </a>
+            </li>
+            <!-- Manage Students -->
+            <li class="nav-item">
+                <a class="nav-link {% if 'manage_students' in segment %} active {% endif %}" href="{{url_for('admin_blueprint.view_students')}}">
+                    <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                      <i class="fas fa-user-graduate" style="color: #344767;"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">Manage Students</span>
+                </a>
+            </li>
+            <!-- Manage Lecturers -->
+            <li class="nav-item">
+                <a class="nav-link {% if 'manage_lecturers' in segment %} active {% endif %}" href="{{url_for('admin_blueprint.view_lecturers')}}">
+                    <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="fas fa-chalkboard-teacher" style="color: #344767;"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">Manage Lecturers</span>
+                </a>
+            </li>
+            <!-- Manage Courses -->
+            <li class="nav-item">
+                <a class="nav-link {% if 'manage_courses' in segment %} active {% endif %}" href="{{url_for('admin_blueprint.view_courses')}}">
+                    <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="fas fa-book" style="color: #344767;"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">Manage Courses</span>
+                </a>
+            </li>
+            <!-- Manage Attendance Records -->
+            <li class="nav-item">
+                <a class="nav-link {% if 'manage_attendance' in segment %} active {% endif %}" href="{{url_for('admin_blueprint.view_attendance_records')}}">
+                    <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="fas fa-clipboard-list" style="color: #344767;"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">Manage Attendance Records</span>
+                </a>
+            </li>
+            <!-- Change Password -->
+            <li class="nav-item">
+                <a class="nav-link {% if 'change-password' in segment %} active {% endif %}" href="#">
+                    <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="fas fa-lock" style="color: #344767;"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">Change Password</span>
+                </a>
+            </li>
+            {% endif %}
+            <!-- Logout -->
+            <li class="nav-item">
+              <a class="nav-link  " href="{{ url_for('authentication_blueprint.logout') }}">
+                <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                    <i class="fas fa-sign-out-alt" style="color: #344767;"></i>
+                </div>
+                <span class="nav-link-text ms-1">Logout</span>
+              </a>
+            </li>
+        </ul>
+    </div>
+  </aside>
+  

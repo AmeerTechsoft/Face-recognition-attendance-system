@@ -1,0 +1,64 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} Lecturers {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+  {% for category, message in messages %}
+  <div class="alert alert-dismissible fade show alert-{{category}} text-white" role="alert">
+    {{ message }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  {% endfor %}
+  {% endif %}
+  {% endwith %}
+    <div class="row">
+        <div class="col-lg-6 offset-lg-3">
+            <div class="card">
+                <div class="card-header">
+                    Edit Lecturer - {{ lecturer.name }}
+                </div>
+                <div class="card-body">
+                    <form method="post" action="{{ url_for('admin_blueprint.edit_lecturer', lecturer_id=lecturer.id) }}">
+                        {{ form.hidden_tag() }}
+                        <div class="mb-3">
+                            {{ form.name.label }}
+                            {{ form.name(class="form-control", value=lecturer.name) }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form.email.label }}
+                            {{ form.email(class="form-control", value=lecturer.email) }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form.dob.label }}
+                            {{ form.dob(class="form-control", value=lecturer.dob) }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form.password.label }}
+                            {{ form.password(class="form-control", value=lecturer.password) }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form.profile_picture.label }}
+                            {{ form.profile_picture(class="form-control", value=lecturer.profile_picture) }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form.lecturer_id.label }}
+                            {{ form.lecturer_id(class="form-control", value=lecturer.lecturer_id) }}
+                        </div>
+                        <!-- Add more fields as needed -->
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}v
+
+<!-- Specific JS goes HERE --> 
+{% block javascripts %}{% endblock javascripts %}

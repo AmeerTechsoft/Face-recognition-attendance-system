@@ -1,0 +1,45 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}My Courses{% endblock title %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card mb-4">
+                <div class="card-header pb-0 px-3">
+                    <h2 class="mb-0">My Courses</h2>
+                </div>
+                <div class="card-body pt-4 p-3">
+                    <div class="table-responsive p-0">
+                        <table class="table align-items-center mb-0">
+                            <thead>
+                                <tr>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Course</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Code</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Lecturer</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for course in selected_courses %}
+                                <tr>
+                                    <td>{{ course.name }}</td>
+                                    <td>{{ course.code }}</td>
+                                    <td>{{ course.lecturer }}</td>
+                                    <td>
+                                        <form method="POST" action="{{ url_for('student_blueprint.remove_course', course_id=course.id) }}">
+                                            <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

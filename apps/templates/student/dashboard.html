@@ -1,0 +1,89 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} Profile {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="container-fluid">
+  {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+  {% for category, message in messages %}
+  <div class="alert alert-dismissible fade show alert-{{category}} text-white" role="alert">
+    {{ message }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  {% endfor %}
+  {% endif %}
+  {% endwith %}
+      <div class="page-header min-height-300 border-radius-xl mt-4" style="background-image: url('{{ config.ASSETS_ROOT }}/img/curved-images/curved0.jpg'); background-position-y: 50%;">
+        <span class="mask bg-gradient-primary opacity-6"></span>
+      </div>
+      <div class="card card-body blur shadow-blur mx-4 mt-n6 overflow-hidden">
+        <div class="row gx-4">
+          <div class="col-auto">
+            <div class="avatar avatar-xl position-relative">
+              <img src="{{current_user.image_url}}" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
+            </div>
+          </div>
+          <div class="col-auto my-auto">
+            <div class="h-100">
+              <p class="mb-0 font-weight-bold text-sm">Student</p>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 my-sm-auto ms-sm-auto me-sm-0 mx-auto mt-3">
+            <!-- ... (same as before) ... -->
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="container-fluid py-4">
+
+      <div class="row">
+        <div class="col-12 col-xl-4">
+          <!-- ... (same as before) ... -->
+        </div>
+        <div class="col-12 col-xl-4">
+            <div class="card h-100">
+              <div class="card-header pb-0 p-3">
+                <div class="row">
+                  <div class="col-md-8 d-flex align-items-center">
+                    <h6 class="mb-0">Student Information</h6>
+                  </div>
+                  <div class="col-md-4 text-end">
+                    <!-- Edit profile link for students -->
+                    <a href="javascript:;">
+                      <i class="fas fa-user-edit text-secondary text-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Profile"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body p-3">
+                {% if student_info %}
+            <p>Name: {{ student_info.name }}</p>
+            <p>Email: {{ student_info.email }}</p>
+            <p>Date of Birth: {{ student_info.dob }}</p>
+            <p>Year: {{student_info.year}}</p>
+            <p>Semester: {{student_info.semester}}</p>
+            <p>Programme: {{student_info.program}}</p>
+        {% else %}
+            <p>No student information found.</p>
+        {% endif %}
+              </div>
+            </div>
+        </div>
+        <!-- ... (remaining code for other columns) ... -->
+      </div>
+
+      <!-- {% include "includes/footer.html" %} -->
+
+    </div>
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE --> 
+{% block javascripts %}{% endblock javascripts %}
